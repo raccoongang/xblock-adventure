@@ -408,9 +408,12 @@ class AdventureBlock(XBlockWithLightChildren):
 
     @property
     def additional_publish_event_data(self):
+        adventure_id = self.adventure_id
+        if callable(adventure_id):
+            adventure_id = adventure_id()
         return {
             'user_id': self.scope_ids.user_id,
-            'component_id': self.adventure_id,
+            'component_id': adventure_id,
         }
 
     @XBlock.json_handler
